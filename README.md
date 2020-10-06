@@ -7,17 +7,20 @@
 
 **Requirements**
 
--
+- PYTHON >= 3
 
 **Steps to activate this project**
 
 1. Clone this repository.
+2. Install dependencies `pip3 install -r requirements.txt`
+3. Update the `.env` file.
+4. Run `python3 bot.py`.
 
 ## Testing
 
 This project is fully tested. We have an [automatic pipeline](https://github.com/laravel-portugal/recrutador/actions) and an [automatic code quality analysis](https://coveralls.io/github/laravel-portugal/recrutador) tool set up to continuously test and assert the quality of all code published in this repository, but you can execute the test suite yourself by running the following command:
 
-``` bash
+```bash
 
 ```
 
