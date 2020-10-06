@@ -1,4 +1,5 @@
 import os
+import sys
 import requests
 from dotenv import load_dotenv, set_key
 from typing import List
@@ -19,21 +20,25 @@ class LandingJobs(DriverInterface):
         self.last_published_id = int(os.getenv('LANDINGJOBS_LASTPUBLISHEDID'))
 
     def get(self) -> List[Job]:
-        limit = 50
-        offset = 0
         currentJobs = []
-        for offset in range(0, 1000, limit):
-            payload = {'limit': limit, 'offset': offset}
-            r = requests.get(self.url, payload)
-            if len(r.json()) == 0:
-                break
-            currentJobs = currentJobs + r.json()
+        try:
+            limit = 50
+            offset = 0
+            for offset in range(0, 1000, limit):
+                payload = {'limit': limit, 'offset': offset}
+                r = requests.get(self.url, payload)
+                if len(r.json()) == 0:
+                    break
+                currentJobs = currentJobs + r.json()
+        except:
+            print("A error ocorred while fetching data from " + self.url)
+            print(sys.exc_info()[0])
+            return []
 
         currentJobs = list(sorted(currentJobs, key=lambda j: j['id']))
         currentJobs = list(
-            filter(lambda j: self.__filterByTags(j['tags']), currentJobs))
-        currentJobs = list(
-            filter(lambda j: self.__filterUnpublished(j['id']), currentJobs))
+            filter(lambda j: self.__filterByTags(
+                j['tags']) and self.__filterUnpublished(j['id']), currentJobs))
 
         unpublishedJobs: List[Job] = []
         for j in currentJobs:
@@ -50,8 +55,12 @@ class LandingJobs(DriverInterface):
         return id > self.last_published_id
 
     def persistPublished(self, job: Job):
-        if job.identifier > self.last_published_id:
-            self.last_published_id = job.identifier
-            print('Persisting LANDINGJOBS_LASTPUBLISHEDID==' + str(job.identifier))
-            set_key(os.path.join(os.path.dirname(os.path.realpath(
-                __file__)), '.env'), 'LANDINGJOBS_LASTPUBLISHEDID', str(job.identifier))
+        try:
+            if job.identifier > self.last_published_id:
+                self.last_published_id = job.identifier
+                print('Persisting LANDINGJOBS_LASTPUBLISHEDID==' +
+                      str(job.identifier))
+                set_key(self.getEnvFilePath(),
+                        'LANDINGJOBS_LASTPUBLISHEDID', str(job.identifier))
+        except:
+            print(sys.exc_info()[0])
