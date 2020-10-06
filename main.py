@@ -1,4 +1,5 @@
 import os
+import sys
 import discord
 from time import sleep
 from typing import List
@@ -34,10 +35,18 @@ class DiscordClient(discord.Client):
             for driver in self.drivers:
                 jobs: List[Job] = driver.get()
                 for job in jobs:
-                    print('Sending message for job id:' + str(job.identifier))
-                    await self.sendMessage(job)
-                    driver.persistPublished(job)
+                    try:
+                        print('Sending message for job id:' +
+                              str(job.identifier))
+                        await self.sendMessage(job)
+                        driver.persistPublished(job)
+                    except:
+                        print("An error ocorred, closing client")
+                        print(sys.exc_info()[0])
+                        await self.close()
+                        return
 
+            print("Sleeping for " + str(self.fetch_interval) + ' seconds...')
             sleep(self.fetch_interval)
 
     async def sendMessage(self, job: Job):
@@ -48,7 +57,21 @@ class DiscordClient(discord.Client):
         self.drivers.append(driver)
 
 
-client = DiscordClient(TOKEN, CHANNELID, FETCHINTERVAL)
-client.registerDriver(ItJobs())
-client.registerDriver(LandingJobs())
-client.run(TOKEN)
+def main():
+    client = DiscordClient(TOKEN, CHANNELID, FETCHINTERVAL)
+    try:
+        print("Starting bot ...")
+        client.registerDriver(ItJobs())
+        client.registerDriver(LandingJobs())
+        client.run(TOKEN)
+    except:
+        print("An error ocorred ...")
+        print(sys.exc_info()[0])
+
+
+while True:
+    main()
+    print("Retrying in " + str(FETCHINTERVAL) + ' seconds...')
+    sleep(FETCHINTERVAL)
+    python = sys.executable
+    os.execl(python, 'python', *sys.argv)
