@@ -25,6 +25,9 @@ class ItJobs(DriverInterface):
         self.last_published_id = int(os.getenv('ITJOBS_LASTPUBLISHEDID'))
 
     def get(self) -> List[Job]:
+        # missing api key
+        if (self.api_key == ''):
+            return []
         currentJobs = []
 
         try:
@@ -38,8 +41,7 @@ class ItJobs(DriverInterface):
 
             currentJobs = currentJobs + request['results']
             if (total > limit):
-                pages = ceil(total/limit,)
-                for page in range(2, pages + 1):
+                for page in range(2, ceil(total / limit) + 1):
                     payload['page'] = page
                     request = requests.get(self.url, payload).json()
                     currentJobs = currentJobs + request['results']
