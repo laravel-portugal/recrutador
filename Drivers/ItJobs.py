@@ -29,18 +29,20 @@ class ItJobs(DriverInterface):
 
         try:
             limit = 100
-            payload = {'api_key': self.api_key, 'q': self.search, 'limit': 1}
-            r = requests.get(self.url, payload)
-            total = r.json()['total']
+            payload = {'api_key': self.api_key,
+                       'q': self.search, 'limit': limit, 'page': 1}
+            request = requests.get(self.url, payload).json()
+            total = request['total']
             if (total == 0):
                 return []
-            pages = ceil(total/limit,)
 
-            for page in range(1, pages + 1):
-                payload = {'api_key': self.api_key,
-                           'q': self.search, 'limit': limit, 'page': page}
-                currentJobs = currentJobs + \
-                    requests.get(self.url, payload).json()['results']
+            currentJobs = currentJobs + request['results']
+            if (total > limit):
+                pages = ceil(total/limit,)
+                for page in range(2, pages + 1):
+                    payload['page'] = page
+                    request = requests.get(self.url, payload).json()
+                    currentJobs = currentJobs + request['results']
         except:
             print("A error ocorred while fetching data from " + self.url)
             print(sys.exc_info()[0])
