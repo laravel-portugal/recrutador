@@ -15,6 +15,7 @@
 2. Install dependencies `pip3 install -r requirements.txt`
 3. Update the `.env` file.
 4. Run `python3 main.py`.
+5. Run `python3 main.py --dry` to avoid publishing to channel.
 
 ## Testing
 

@@ -10,24 +10,25 @@ from Drivers.DriverInterface import DriverInterface
 from Drivers.ItJobs import ItJobs
 from Drivers.LandingJobs import LandingJobs
 
-load_dotenv()
-
-TOKEN = os.getenv('TOKEN')
-CHANNELID = int(os.getenv('CHANNELID'))
-FETCHINTERVAL = int(os.getenv('FETCHINTERVAL'))
+TOKEN = None
+CHANNELID = None
+FETCHINTERVAL = None
+DRYRUN = False
 
 
 class DiscordClient(discord.Client):
     token = ""
+    dryrun = False
     channel_id = 0
     fetch_interval = 0
     drivers: List[DriverInterface] = []
 
-    def __init__(self, token: str, channel_id: int, fetch_interval: int):
+    def __init__(self, token: str, channel_id: int, fetch_interval: int, dryrun: bool = False):
         super().__init__()
         self.token = token
         self.channel_id = channel_id
         self.fetch_interval = fetch_interval
+        self.dryrun = dryrun
 
     async def on_ready(self):
         print('Hello i\'am Bot for Landing Jobs', self.user)
@@ -38,10 +39,11 @@ class DiscordClient(discord.Client):
                     try:
                         print('Sending message for job id:' +
                               str(job.identifier))
-                        await self.sendMessage(job)
+                        if not self.dryrun:
+                            await self.sendMessage(job)
                         driver.persistPublished(job)
                     except:
-                        print("An error ocorred, closing client")
+                        print("An error ocorred, closing bot...")
                         print(sys.exc_info()[0])
                         await self.close()
                         return
@@ -58,8 +60,8 @@ class DiscordClient(discord.Client):
 
 
 def main():
-    client = DiscordClient(TOKEN, CHANNELID, FETCHINTERVAL)
     try:
+        client = DiscordClient(TOKEN, CHANNELID, FETCHINTERVAL, DRYRUN)
         print("Starting bot ...")
         client.registerDriver(ItJobs())
         client.registerDriver(LandingJobs())
@@ -69,9 +71,30 @@ def main():
         print(sys.exc_info()[0])
 
 
+def fetchConfig() -> bool:
+    global TOKEN
+    global CHANNELID
+    global FETCHINTERVAL
+    global DRYRUN
+    try:
+        load_dotenv()
+        TOKEN = os.getenv('TOKEN')
+        CHANNELID = int(os.getenv('CHANNELID'))
+        FETCHINTERVAL = int(os.getenv('FETCHINTERVAL'))
+        DRYRUN = '--dry' in sys.argv
+        if TOKEN == None or CHANNELID == None or FETCHINTERVAL == None:
+            return False
+        return True
+    except:
+        print("An error ocorred fetching config...")
+        print(sys.exc_info()[0])
+
+
 while True:
-    main()
-    print("Retrying in " + str(FETCHINTERVAL) + ' seconds...')
+
+    if fetchConfig():
+        main()
+    print("Restarting " + str(FETCHINTERVAL) + ' seconds...')
     sleep(FETCHINTERVAL)
     python = sys.executable
-    os.execl(python, 'python', *sys.argv)
+    os.execl(python, python, *sys.argv)
