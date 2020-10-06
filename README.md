@@ -14,7 +14,7 @@
 1. Clone this repository.
 2. Install dependencies `pip3 install -r requirements.txt`
 3. Update the `.env` file.
-4. Run `python3 bot.py`.
+4. Run `python3 main.py`.
 
 ## Testing
 
