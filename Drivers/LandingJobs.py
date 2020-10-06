@@ -2,11 +2,12 @@ import os
 import requests
 from dotenv import load_dotenv, set_key
 from typing import List
-from JobsInterface import JobsInterface
-from Job import Job
+
+from Drivers.Job import Job
+from Drivers.DriverInterface import DriverInterface
 
 
-class LandingJobs(JobsInterface):
+class LandingJobs(DriverInterface):
     tags = []
     url = ""
     last_published_id = 0

@@ -4,12 +4,11 @@ from time import sleep
 from typing import List
 from dotenv import load_dotenv, set_key
 
+from Drivers.Job import Job
+from Drivers.DriverInterface import DriverInterface
+from Drivers.ItJobs import ItJobs
+from Drivers.LandingJobs import LandingJobs
 
-from Job import Job
-from JobsInterface import JobsInterface
-
-from LandingJobs import LandingJobs
-from ItJobs import ItJobs
 load_dotenv()
 
 TOKEN = os.getenv('TOKEN')
@@ -21,7 +20,7 @@ class DiscordClient(discord.Client):
     token = ""
     channel_id = 0
     fetch_interval = 0
-    drivers: List[JobsInterface] = []
+    drivers: List[DriverInterface] = []
 
     def __init__(self, token: str, channel_id: int, fetch_interval: int):
         super().__init__()
@@ -45,7 +44,7 @@ class DiscordClient(discord.Client):
         channel = self.get_channel(self.channel_id)
         await channel.send(job.url)
 
-    def registerDriver(self, driver: JobsInterface):
+    def registerDriver(self, driver: DriverInterface):
         self.drivers.append(driver)
 
 

@@ -2,12 +2,14 @@ import os
 import requests
 from dotenv import load_dotenv, set_key
 from typing import List
-from JobsInterface import JobsInterface
-from Job import Job
 from math import ceil
 
 
-class ItJobs(JobsInterface):
+from Drivers.Job import Job
+from Drivers.DriverInterface import DriverInterface
+
+
+class ItJobs(DriverInterface):
     search = ""
     api_key = ""
     url = ""

@@ -1,9 +1,10 @@
 from abc import ABCMeta, abstractmethod
-from Job import Job
 from typing import List
 
+from Drivers.Job import Job
 
-class JobsInterface(metaclass=ABCMeta):
+
+class DriverInterface(metaclass=ABCMeta):
     @abstractmethod
     def get(self) -> List[Job]:
         pass
