@@ -20,16 +20,20 @@ class LandingJobs(DriverInterface):
         self.last_published_id = int(os.getenv('LANDINGJOBS_LASTPUBLISHEDID'))
 
     def get(self) -> List[Job]:
+        # missing tags
+        if (len(self.tags) == 0):
+            return []
+
         currentJobs = []
         try:
             limit = 50
             offset = 0
             for offset in range(0, 1000, limit):
                 payload = {'limit': limit, 'offset': offset}
-                r = requests.get(self.url, payload)
-                if len(r.json()) == 0:
+                jobs = requests.get(self.url, payload).json()
+                if len(jobs) == 0:
                     break
-                currentJobs = currentJobs + r.json()
+                currentJobs = currentJobs + jobs
         except:
             print("A error ocorred while fetching data from " + self.url)
             print(sys.exc_info()[0])
