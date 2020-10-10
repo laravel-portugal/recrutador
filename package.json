@@ -6,7 +6,11 @@
     "start": "node ./bin/www"
   },
   "dependencies": {
+    "bufferutil": "^4.0.1",
     "debug": "~2.6.9",
-    "discord.js": "^12.3.1"
+    "discord.js": "^12.3.1",
+    "erlpack": "github:discord/erlpack",
+    "utf-8-validate": "^5.0.2",
+    "zlib-sync": "^0.1.7"
   }
 }
