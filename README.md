@@ -7,17 +7,34 @@
 
 **Requirements**
 
--
+- Node.js
 
-**Steps to activate this project**
+**Steps to run this project**
 
 1. Clone this repository.
+2.  `npm install`
+3. Update the `.env` file.
+4. Run `npm start`.
+
+## .env
+
+### TOKEN
+
+To use a Discord Bot you need an API TOKEN, to create one follow this tutorial (https://discordpy.readthedocs.io/en/latest/discord.html#).
+
+### CHANNELID
+
+This Discord Channel Id, to get this id you should active "Developer Mode" in Appearance of your Discord Settings and after right-click the Target Channel and copy the ID.
+
+### FETCHINTERVAL
+
+The number of seconds between pulls, please keep it high (you should be fine with at least 30 minutes).
 
 ## Testing
 
 This project is fully tested. We have an [automatic pipeline](https://github.com/laravel-portugal/recrutador/actions) and an [automatic code quality analysis](https://coveralls.io/github/laravel-portugal/recrutador) tool set up to continuously test and assert the quality of all code published in this repository, but you can execute the test suite yourself by running the following command:
 
-``` bash
+```bash
 
 ```
 
