@@ -3,6 +3,7 @@ require('dotenv').config()
 const Discord = require('discord.js');
 const sleep = require('./sleep');
 const LandingJobs = require('./drivers/LandingJobs');
+const ItJobs = require('./drivers/ItJobs');
 
 
 //create a new discord client
@@ -46,10 +47,10 @@ async function processJobs() {
                 console.info("Sending job url: " + jobs[jobIndex].url)
 
                 //awaits publishing job
-                await channel.send(jobs[jobIndex].url)
+                // await channel.send(jobs[jobIndex].url)
 
                 //stores the job in config file
-                drivers[index].storePublishedJob(jobs[jobIndex])
+                // drivers[index].storePublishedJob(jobs[jobIndex])
             }
         }
         //pauses execution 
@@ -66,7 +67,7 @@ async function processJobs() {
 
 //register each driver
 //itJobs missing
-const drivers = [new LandingJobs()]
+const drivers = [new LandingJobs(), new ItJobs()]
 
 //login with token from .env
 client.login(process.env.TOKEN);
