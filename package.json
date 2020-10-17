@@ -1,0 +1,19 @@
+{
+  "name": "recrutador",
+  "version": "0.0.1",
+  "private": true,
+  "scripts": {
+    "start": "node src/app.js"
+  },
+  "dependencies": {
+    "axios": "^0.20.0",
+    "bufferutil": "^4.0.1",
+    "debug": "~2.6.9",
+    "discord.js": "^12.3.1",
+    "dotenv": "^8.2.0",
+    "erlpack": "github:discord/erlpack",
+    "node-telegram-bot-api": "^0.50.0",
+    "utf-8-validate": "^5.0.2",
+    "zlib-sync": "^0.1.7"
+  }
+}
