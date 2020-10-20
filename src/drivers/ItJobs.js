@@ -36,10 +36,9 @@ module.exports = class ItJobs extends BaseDriver {
 
             let allJobs = []
             let limit = 2 // limit per request, api imposed
-
             let tagsList = this.config.tags.length;
 
-             for (let tagConfig = 0; tagConfig < tagsList; tagConfig++) {
+            for (let tagConfig = 0; tagConfig < tagsList; tagConfig++) {
                 for (let page = 0; page < 1; page++) {
                     console.info('tagConfig ' + this.config.tags[tagConfig])
 
