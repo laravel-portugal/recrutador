@@ -68,8 +68,8 @@ async function processJobs() {
 
 //register each driver
 //itJobs missing
-// const drivers = [new LandingJobs(), new ItJobs()]
-const drivers = [new ItJobs()]
+const drivers = [new LandingJobs(), new ItJobs()]
+// const drivers = [new ItJobs()]
 
 //login with token from .env
 client.login(process.env.TOKEN);
