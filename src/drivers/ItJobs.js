@@ -49,23 +49,19 @@ module.exports = class ItJobs extends BaseDriver {
                         'offset': page * limit
                     }
 
-                    console.info('Fetching ' + limit)
                     let jobs = await axios.get(this.url, {
                         params: payload
                     });
-                    console.info('results ' + jobs.data.results)
-                    console.info('lengt ' + jobs.data.results.length)
-                    if (jobs.data.results.length === 0) {
+
+                     if (jobs.data.results.length === 0) {
                         break;
                     } else {
                         allJobs = allJobs.concat(jobs.data.results)
                     }
-                    console.info('lengt ' + allJobs)
                 }
             }
 
             console.info('Filtering ...')
-            // let filteredJobs = allJobs.filter(x => this.filterByTags(x.body) && this.filterUnpublished(x.id))
             let filteredJobs = allJobs.filter(x => this.filterUnpublished(x.id))
 
             console.info(filteredJobs.length + ' jobs found ...')
