@@ -1,6 +1,6 @@
 const axios = require('axios').default
 const BaseDriver = require('./BaseDriver')
-
+require('dotenv').config()
 
 module.exports = class ItJobs extends BaseDriver {
 
@@ -39,25 +39,28 @@ module.exports = class ItJobs extends BaseDriver {
             for (let page = 0; page < 1; page++) {
 
                 let payload = {
-                    'api_key': 'api_key',
+                    'api_key': process.env.TOKEN_ITJOBS,
                     'limit': limit,
                     'q': 'php',
                     'offset': page * limit
                 }
-               
+
                 console.info('Fetching ' + limit)
                 let jobs = await axios.get(this.url, {
                     params: payload
-                })
-
-                if (jobs.data.length === 0) {
+                });
+                console.info('results ' + jobs.data.results)
+                console.info('lengt ' + jobs.data.results.length)
+                if (jobs.data.results.length === 0) {
                     break;
                 } else {
-                    allJobs = allJobs.concat(jobs.data)
+                    allJobs = allJobs.concat(jobs.data.results)
                 }
+                console.info('lengt ' + allJobs)
             }
             console.info('Filtering ...')
-            let filteredJobs = allJobs.filter(x => this.filterByTags(x.tags) && this.filterUnpublished(x.id))
+            // let filteredJobs = allJobs.filter(x => this.filterByTags(x.body) && this.filterUnpublished(x.id))
+            let filteredJobs = allJobs.filter(x => this.filterUnpublished(x.id))
 
             console.info(filteredJobs.length + ' jobs found ...')
 
@@ -66,7 +69,7 @@ module.exports = class ItJobs extends BaseDriver {
             return filteredJobs.map(x => {
                 return {
                     id: x.id,
-                    url: x.url
+                    url: "https://www.itjobs.pt/oferta/" + x.id + "/" + x.slug
                 }
             }).sort(x => x.id)
         } catch (error) {
