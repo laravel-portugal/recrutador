@@ -33,9 +33,8 @@ module.exports = class ItJobs extends BaseDriver {
                 return []
             }
 
-
             let allJobs = []
-            let limit = 2 // limit per request, api imposed
+            let limit = 10 // limit per request, api imposed
             let tagsList = this.config.tags.length;
 
             for (let tagConfig = 0; tagConfig < tagsList; tagConfig++) {
@@ -76,7 +75,6 @@ module.exports = class ItJobs extends BaseDriver {
             }).sort(x => x.id)
         } catch (error) {
             console.error("LandingJobs -> getJobs -> error", error)
-
         }
     }
 
