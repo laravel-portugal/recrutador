@@ -81,23 +81,6 @@ module.exports = class ItJobs extends BaseDriver {
         }
     }
 
-    /**
-     * Filters jobs using an array of relevant tags
-     * @param {array} tags 
-     */
-    filterByTags(tags) {
-        try {
-            for (let index = 0; index < tags.length; index++) {
-                if (this.config.tags.map(x => x.toUpperCase()).indexOf(tags[index].toUpperCase()) > -1) {
-                    return true
-                }
-            }
-            return false;
-        } catch (error) {
-            console.error("ItJobs -> filterByTags -> error", error)
-
-        }
-    }
 
     /**
      * Filter jobs by job id
