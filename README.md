@@ -12,9 +12,11 @@
 **Steps to run this project**
 
 1. Clone this repository.
-2.  `npm install`
+2. Run `npm install`
 3. Update the `.env` file.
-4. Run `npm start`.
+4. Run `node src/app.js` to check for new jobs and exit.
+5. Run `node src/app.js --loop`  to check for new jobs every x seconds (see FETCHINTERVAL in .env config).
+
 
 ## .env
 
@@ -29,6 +31,10 @@ This Discord Channel Id, to get this id you should active "Developer Mode" in Ap
 ### FETCHINTERVAL
 
 The number of seconds between pulls, please keep it high (you should be fine with at least 30 minutes).
+
+### TOKEN_ITJOBS
+
+To use ItJobs API  you need an API TOKEN, to request one goto (https://www.itjobs.pt/api).
 
 ## Testing
 
