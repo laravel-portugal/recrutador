@@ -5,6 +5,7 @@ const sleep = require('./sleep');
 const LandingJobs = require('./drivers/LandingJobs');
 const ItJobs = require('./drivers/ItJobs');
 
+let keepInLoop = false
 
 //create a new discord client
 const client = new Discord.Client();
@@ -16,7 +17,16 @@ client.on('ready', async () => {
     console.log(`Ready to process jobs!`);
     do {
         await processJobs()
+        if (!keepInLoop) {
+            client.destroy()
+            break;
+        }
+        //pauses execution 
+        console.info("Sleeping for " + parseInt(process.env.FETCHINTERVAL) * 1000)
+        await sleep(parseInt(process.env.FETCHINTERVAL) * 1000)
+
     } while (true);
+
 });
 
 //called when a error occurs in discord client
@@ -42,7 +52,7 @@ async function processJobs() {
 
                 //get the channel
                 const channel = client.channels.cache.get(process.env.CHANNELID);
-                console.log( jobs[jobIndex]);
+                console.log(jobs[jobIndex]);
 
                 //logs the job url
                 console.info("Sending job url: " + jobs[jobIndex].url)
@@ -54,9 +64,6 @@ async function processJobs() {
                 drivers[index].storePublishedJob(jobs[jobIndex])
             }
         }
-        //pauses execution 
-        console.info("Sleeping for " + parseInt(process.env.FETCHINTERVAL) * 1000)
-        await sleep(parseInt(process.env.FETCHINTERVAL) * 1000)
 
 
     } catch (error) {
@@ -67,9 +74,19 @@ async function processJobs() {
 
 
 //register each driver
-//itJobs missing
 const drivers = [new LandingJobs(), new ItJobs()]
 // const drivers = [new ItJobs()]
+
+
+var args = process.argv;
+console.log('args: ', args);
+keepInLoop = args.indexOf('--loop') > -1
+
+if (keepInLoop) {
+    console.log('Loop: active');
+} else {
+    console.log('Loop: inactive');
+}
 
 //login with token from .env
 client.login(process.env.TOKEN);
