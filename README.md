@@ -38,6 +38,11 @@ This project is fully tested. We have an [automatic pipeline](https://github.com
 
 ```
 
+## Authorize
+```
+https://discord.com/oauth2/authorize?client_id=123456789012345678&scope=bot
+```
+
 **We aim to keep the master branch always deployable.** Exceptions may happen, but they should be extremely rare.
 
 ## Changelog

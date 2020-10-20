@@ -1,6 +1,6 @@
 const axios = require('axios').default
 const BaseDriver = require('./BaseDriver')
-
+require('dotenv').config()
 
 module.exports = class ItJobs extends BaseDriver {
 
@@ -35,29 +35,35 @@ module.exports = class ItJobs extends BaseDriver {
 
 
             let allJobs = []
-            let limit = 2 // limit per request, api imposed
-            for (let page = 0; page < 1; page++) {
+            let limit = 10 // limit per request, api imposed
+            let tagsList = this.config.tags.length;
 
-                let payload = {
-                    'api_key': 'api_key',
-                    'limit': limit,
-                    'q': 'php',
-                    'offset': page * limit
-                }
-               
-                console.info('Fetching ' + limit)
-                let jobs = await axios.get(this.url, {
-                    params: payload
-                })
+            for (let tagConfig = 0; tagConfig < tagsList; tagConfig++) {
+                for (let page = 0; page < 1; page++) {
+                    console.info('tagConfig ' + this.config.tags[tagConfig])
 
-                if (jobs.data.length === 0) {
-                    break;
-                } else {
-                    allJobs = allJobs.concat(jobs.data)
+                    let payload = {
+                        'api_key': process.env.TOKEN_ITJOBS,
+                        'limit': limit,
+                        'q': this.config.tags[tagConfig],
+                        'offset': page * limit
+                    }
+
+                    let jobs = await axios.get(this.url, {
+                        params: payload
+                    });
+
+                     if (jobs.data.results.length === 0) {
+                        break;
+                    } else {
+                        allJobs = allJobs.concat(jobs.data.results)
+                    }
                 }
             }
+
             console.info('Filtering ...')
-            let filteredJobs = allJobs.filter(x => this.filterByTags(x.tags) && this.filterUnpublished(x.id))
+            let filteredJobs = allJobs.filter(x => this.filterUnpublished(x.id))
+
 
             console.info(filteredJobs.length + ' jobs found ...')
 
@@ -66,12 +72,12 @@ module.exports = class ItJobs extends BaseDriver {
             return filteredJobs.map(x => {
                 return {
                     id: x.id,
-                    url: x.url
+                    url: "https://www.itjobs.pt/oferta/" + x.id + "/" + x.slug
+
                 }
             }).sort(x => x.id)
         } catch (error) {
             console.error("LandingJobs -> getJobs -> error", error)
-
         }
     }
 

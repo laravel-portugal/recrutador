@@ -43,14 +43,16 @@ async function processJobs() {
                 //get the channel
                 const channel = client.channels.cache.get(process.env.CHANNELID);
 
+
                 //logs the job url
                 console.info("Sending job url: " + jobs[jobIndex].url)
 
                 //awaits publishing job
-                // await channel.send(jobs[jobIndex].url)
+                await channel.send(jobs[jobIndex].url)
 
                 //stores the job in config file
-                // drivers[index].storePublishedJob(jobs[jobIndex])
+                drivers[index].storePublishedJob(jobs[jobIndex])
+
             }
         }
         //pauses execution 
