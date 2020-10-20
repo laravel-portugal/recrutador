@@ -54,6 +54,7 @@ async function processJobs() {
                 const channel = client.channels.cache.get(process.env.CHANNELID);
                 console.log(jobs[jobIndex]);
 
+
                 //logs the job url
                 console.info("Sending job url: " + jobs[jobIndex].url)
 
@@ -62,6 +63,7 @@ async function processJobs() {
 
                 //stores the job in config file
                 drivers[index].storePublishedJob(jobs[jobIndex])
+
             }
         }
 
@@ -75,7 +77,6 @@ async function processJobs() {
 
 //register each driver
 const drivers = [new LandingJobs(), new ItJobs()]
-// const drivers = [new ItJobs()]
 
 
 var args = process.argv;
