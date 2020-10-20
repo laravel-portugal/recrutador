@@ -42,7 +42,7 @@ async function processJobs() {
 
                 //get the channel
                 const channel = client.channels.cache.get(process.env.CHANNELID);
-                console.log( jobs[jobIndex]);
+
 
                 //logs the job url
                 console.info("Sending job url: " + jobs[jobIndex].url)
@@ -52,6 +52,7 @@ async function processJobs() {
 
                 //stores the job in config file
                 drivers[index].storePublishedJob(jobs[jobIndex])
+
             }
         }
         //pauses execution 
@@ -69,7 +70,6 @@ async function processJobs() {
 //register each driver
 //itJobs missing
 const drivers = [new LandingJobs(), new ItJobs()]
-// const drivers = [new ItJobs()]
 
 //login with token from .env
 client.login(process.env.TOKEN);

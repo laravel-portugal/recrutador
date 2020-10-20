@@ -33,6 +33,7 @@ module.exports = class ItJobs extends BaseDriver {
                 return []
             }
 
+
             let allJobs = []
             let limit = 10 // limit per request, api imposed
             let tagsList = this.config.tags.length;
@@ -63,6 +64,7 @@ module.exports = class ItJobs extends BaseDriver {
             console.info('Filtering ...')
             let filteredJobs = allJobs.filter(x => this.filterUnpublished(x.id))
 
+
             console.info(filteredJobs.length + ' jobs found ...')
 
             console.info('Mapping and sorting ...')
@@ -71,6 +73,7 @@ module.exports = class ItJobs extends BaseDriver {
                 return {
                     id: x.id,
                     url: "https://www.itjobs.pt/oferta/" + x.id + "/" + x.slug
+
                 }
             }).sort(x => x.id)
         } catch (error) {
