@@ -53,7 +53,7 @@ module.exports = class ItJobs extends BaseDriver {
                         params: payload
                     });
 
-                     if (jobs.data.results.length === 0) {
+                    if (jobs.data.results.length === 0) {
                         break;
                     } else {
                         allJobs = allJobs.concat(jobs.data.results)
@@ -94,7 +94,7 @@ module.exports = class ItJobs extends BaseDriver {
             }
             return false;
         } catch (error) {
-            console.error("LandingJobs -> filterByTags -> error", error)
+            console.error("ItJobs -> filterByTags -> error", error)
 
         }
     }
@@ -114,7 +114,7 @@ module.exports = class ItJobs extends BaseDriver {
             this.config.last_published_job_id = job.id
             this.storeConfig()
         } catch (error) {
-            console.error("LandingJobs -> storePublishedJob -> error", error)
+            console.error("ItJobs -> storePublishedJob -> error", error)
         }
     }
 }
