@@ -34,7 +34,14 @@ client.on('shardError', error => {
     console.error('A websocket connection encountered an error:', error);
     console.log('Restarting script');
     client.destroy()
-    client.login(process.env.TOKEN);
+    client.login(process.env.TOKEN)
+        .then(function() {
+            console.log('Good!')
+            // client.destroy()
+        }, function(err) {
+            console.log('Still good, as long as the process now exits.')
+            client.destroy()
+        })
 });
 
 /**
@@ -90,4 +97,11 @@ if (keepInLoop) {
 }
 
 //login with token from .env
-client.login(process.env.TOKEN);
+client.login(process.env.TOKEN)
+    .then(function() {
+        console.log('Good!')
+        // client.destroy()
+    }, function(err) {
+        console.log('Still good, as long as the process now exits.')
+        client.destroy()
+    })
