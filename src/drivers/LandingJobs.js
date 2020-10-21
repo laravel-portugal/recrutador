@@ -48,11 +48,14 @@ module.exports = class LandingJobs extends BaseDriver {
                 let jobs = await axios.get(this.url, {
                     params: payload,
                     headers: {
-                        "User-Agent" : "LARAVEL PORTUGAL GROUPS",
+                        "User-Agent": "LARAVEL PORTUGAL GROUPS",
                         Authorization: 'Token token= ' + process.env.LANDINGJOBS_API_KEY //the token is a variable which holds the token
                     }
                 })
                 console.log("STATUS: " + jobs.status);
+                // console.log(jobs.data);
+                // console.log(jobs.status);
+                console.log(jobs.headers);
                 if (jobs.status != 200) {
                     break;
                 }

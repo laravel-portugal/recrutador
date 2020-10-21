@@ -52,6 +52,14 @@ module.exports = class ItJobs extends BaseDriver {
                     let jobs = await axios.get(this.url, {
                         params: payload
                     });
+                    console.log("STATUS: " + jobs.status);
+                    // console.log(jobs.data);
+                    // console.log(jobs.status);
+                    console.log(jobs.headers);
+                    if (jobs.status != 200) {
+                        break;
+                    }
+
 
                     if (jobs.data.results.length === 0) {
                         break;
