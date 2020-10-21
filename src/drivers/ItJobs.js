@@ -7,7 +7,7 @@ module.exports = class ItJobs extends BaseDriver {
     constructor() {
         super()
     }
-    url = 'https://api.itjobs.pt/job/search.json'
+    url = 'https://api.itjobs.pt/job/search.json';
 
     /**
      * @returns the default config

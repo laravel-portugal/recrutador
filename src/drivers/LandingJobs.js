@@ -7,7 +7,8 @@ module.exports = class LandingJobs extends BaseDriver {
     constructor() {
         super()
     }
-    url = 'https://landing.jobs/api/v1/jobs'
+
+    url = 'https://landing.jobs/api/v1/jobs';
 
     /**
      * @returns the default config

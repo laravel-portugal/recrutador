@@ -76,7 +76,7 @@ async function processJobs() {
 
 
 //register each driver
-const drivers = [new LandingJobs(), new ItJobs()]
+const drivers = [new ItJobs(), new LandingJobs()]
 
 
 var args = process.argv;
