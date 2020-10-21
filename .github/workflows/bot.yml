@@ -22,10 +22,10 @@ jobs:
         CHANNELID: ${{ secrets.CHANNELID }}
         FETCHINTERVAL: ${{ secrets.FETCHINTERVAL }}
         TOKEN_ITJOBS: ${{ secrets.TOKEN_ITJOBS }}
-    - name:  run npm
-      run:  |
-        npm install
-        node src/app.js
+    - name: Install npm
+        run: npm install
+    - name: Install npm
+        run: node src/app.js
     
     - name: Commit files
       run: |
