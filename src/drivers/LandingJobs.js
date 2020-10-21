@@ -57,11 +57,11 @@ module.exports = class LandingJobs extends BaseDriver {
                         console.log(error.response.status);
                         console.log(error.response.headers);
                         if (error.response.status != 200) {
-                            break;
+                            return false;
                         }
                     }
                     if (error.status != 200) {
-                            break;
+                            return false;
                         }
                 });
                 console.log("STATUS: " + jobs.status);
