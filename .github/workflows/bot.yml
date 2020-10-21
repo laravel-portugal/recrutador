@@ -23,9 +23,9 @@ jobs:
         FETCHINTERVAL: ${{ secrets.FETCHINTERVAL }}
         TOKEN_ITJOBS: ${{ secrets.TOKEN_ITJOBS }}
     - name: Install npm
-        run: npm install
+      run: npm install
     - name: Install npm
-        run: node src/app.js
+      run: node src/app.js
     
     - name: Commit files
       run: |
