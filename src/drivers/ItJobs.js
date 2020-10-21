@@ -53,7 +53,7 @@ module.exports = class ItJobs extends BaseDriver {
                         params: payload
                     });
 
-                     if (jobs.data.results.length === 0) {
+                    if (jobs.data.results.length === 0) {
                         break;
                     } else {
                         allJobs = allJobs.concat(jobs.data.results)
@@ -81,23 +81,6 @@ module.exports = class ItJobs extends BaseDriver {
         }
     }
 
-    /**
-     * Filters jobs using an array of relevant tags
-     * @param {array} tags 
-     */
-    filterByTags(tags) {
-        try {
-            for (let index = 0; index < tags.length; index++) {
-                if (this.config.tags.map(x => x.toUpperCase()).indexOf(tags[index].toUpperCase()) > -1) {
-                    return true
-                }
-            }
-            return false;
-        } catch (error) {
-            console.error("LandingJobs -> filterByTags -> error", error)
-
-        }
-    }
 
     /**
      * Filter jobs by job id
@@ -114,7 +97,7 @@ module.exports = class ItJobs extends BaseDriver {
             this.config.last_published_job_id = job.id
             this.storeConfig()
         } catch (error) {
-            console.error("LandingJobs -> storePublishedJob -> error", error)
+            console.error("ItJobs -> storePublishedJob -> error", error)
         }
     }
 }
