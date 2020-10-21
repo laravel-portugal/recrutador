@@ -15,6 +15,10 @@ jobs:
         node-version: '12.13'
       env:
         NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        TOKEN: ${{ secrets.TOKEN_DISCORD }}
+        CHANNELID: ${{ secrets.CHANNELID }}
+        FETCHINTERVAL: ${{ secrets.FETCHINTERVAL }}
+        TOKEN_ITJOBS: ${{ secrets.TOKEN_ITJOBS }}
     - run: npm install
     - run: cp .env.example .env
-    #- run: npm start
+    - run: node src/app.js

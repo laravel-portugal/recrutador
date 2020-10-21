@@ -80,7 +80,7 @@ const drivers = [new LandingJobs(), new ItJobs()]
 
 
 var args = process.argv;
-console.log('args: ', args);
+//console.log('args: ', args);
 keepInLoop = args.indexOf('--loop') > -1
 
 if (keepInLoop) {
