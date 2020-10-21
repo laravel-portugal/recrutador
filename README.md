@@ -36,6 +36,10 @@ The number of seconds between pulls, please keep it high (you should be fine wit
 
 To use ItJobs API  you need an API TOKEN, to request one goto (https://www.itjobs.pt/api).
 
+### LANDINGJOBS_API_KEY
+
+To use landing.jobs API KEY  you need an API TOKEN, to request one goto (https://landing.jobs/account).
+
 ## Testing
 
 This project is fully tested. We have an [automatic pipeline](https://github.com/laravel-portugal/recrutador/actions) and an [automatic code quality analysis](https://coveralls.io/github/laravel-portugal/recrutador) tool set up to continuously test and assert the quality of all code published in this repository, but you can execute the test suite yourself by running the following command:

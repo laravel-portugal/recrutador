@@ -53,7 +53,7 @@ module.exports = class LandingJobs extends BaseDriver {
                     }
                 }).catch(function(error) {
                     if (error.response) {
-                        console.log(error.response.data);
+                        // console.log(error.response.data);
                         console.log(error.response.status);
                         console.log(error.response.headers);
                         if (error.response.status != 200) {
@@ -61,16 +61,17 @@ module.exports = class LandingJobs extends BaseDriver {
                         }
                     }
                     if (error.status != 200) {
-                            return false;
-                        }
+                        return false;
+                    }
                 });
                 console.log("STATUS: " + jobs.status);
                 // console.log(jobs.data);
                 // console.log(jobs.status);
-                console.log(jobs.headers);
+                console.log(jobs.headers.server);
                 if (jobs.status != 200) {
                     break;
                 }
+
 
                 if (jobs.data.length === 0) {
                     break;
