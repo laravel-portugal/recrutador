@@ -78,6 +78,7 @@ module.exports = class LandingJobs extends BaseDriver {
             }).sort(x => x.id)
         } catch (error) {
             console.error("LandingJobs -> getJobs -> error", error)
+            return false;
 
         }
     }
