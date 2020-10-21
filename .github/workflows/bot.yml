@@ -13,7 +13,7 @@ jobs:
     - uses: actions/setup-node@v1
     - uses: ad-m/github-push-action@master
       with:
-        node-version: '12.13'
+        node-version: '12.18.3'
         github_token: ${{ secrets.GITHUB_TOKEN }}
         branch: ${{ github.ref }}
       env:
