@@ -7,7 +7,6 @@ module.exports = class ItJobs extends BaseDriver {
     constructor() {
         super()
     }
-    url = 'https://api.itjobs.pt/job/search.json';
 
     /**
      * @returns the default config
@@ -24,6 +23,7 @@ module.exports = class ItJobs extends BaseDriver {
      * Retrieves jobs from the api
      */
     async getJobs() {
+        url = 'https://api.itjobs.pt/job/search.json';
         try {
             console.info("Fetching jobs from ItJobs")
             //nothing to do here

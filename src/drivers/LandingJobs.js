@@ -8,7 +8,6 @@ module.exports = class LandingJobs extends BaseDriver {
         super()
     }
 
-    url = 'https://landing.jobs/api/v1/jobs';
 
     /**
      * @returns the default config
@@ -25,6 +24,7 @@ module.exports = class LandingJobs extends BaseDriver {
      * Retrieves jobs from the api
      */
     async getJobs() {
+        url = 'https://landing.jobs/api/v1/jobs';
         try {
             console.info("Fetching jobs from LandingJobs")
             //nothing to do here
