@@ -1,6 +1,6 @@
 const axios = require('axios').default
 const BaseDriver = require('./BaseDriver')
-
+require('dotenv').config()
 
 module.exports = class LandingJobs extends BaseDriver {
 
@@ -46,7 +46,10 @@ module.exports = class LandingJobs extends BaseDriver {
 
                 console.info('Fetching ' + limit)
                 let jobs = await axios.get(this.url, {
-                    params: payload
+                    params: payload,
+                    headers: {
+                        Authorization: 'Token token= ' + process.env.LANDINGJOBS_API_KEY //the token is a variable which holds the token
+                    }
                 })
 
                 if (jobs.data.length === 0) {
