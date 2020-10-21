@@ -5,6 +5,7 @@ const BaseDriver = require('./BaseDriver')
 module.exports = class LandingJobs extends BaseDriver {
 
     constructor() {
+        this.url = 'https://landing.jobs/api/v1/jobs';
         super()
     }
 
@@ -24,7 +25,6 @@ module.exports = class LandingJobs extends BaseDriver {
      * Retrieves jobs from the api
      */
     async getJobs() {
-        url = 'https://landing.jobs/api/v1/jobs';
         try {
             console.info("Fetching jobs from LandingJobs")
             //nothing to do here

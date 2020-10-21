@@ -13,7 +13,7 @@ jobs:
     - uses: actions/setup-node@v1
     - uses: ad-m/github-push-action@master
       with:
-        node-version: '12.18.3'
+        # node-version: '12.18.3'
         github_token: ${{ secrets.GITHUB_TOKEN }}
         branch: ${{ github.ref }}
       env:
@@ -22,11 +22,13 @@ jobs:
         CHANNELID: ${{ secrets.CHANNELID }}
         FETCHINTERVAL: ${{ secrets.FETCHINTERVAL }}
         TOKEN_ITJOBS: ${{ secrets.TOKEN_ITJOBS }}
+    
     - name: Install npm
       run: npm install
-    - name: Install npm
-      run: node src/app.js
     
+    - name: run npm app.js
+      run: node src/app.js
+
     - name: Commit files
       run: |
         git config --local user.email "action@github.com"

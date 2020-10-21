@@ -5,6 +5,7 @@ require('dotenv').config()
 module.exports = class ItJobs extends BaseDriver {
 
     constructor() {
+        this.url = 'https://api.itjobs.pt/job/search.json';
         super()
     }
 
@@ -23,7 +24,6 @@ module.exports = class ItJobs extends BaseDriver {
      * Retrieves jobs from the api
      */
     async getJobs() {
-        url = 'https://api.itjobs.pt/job/search.json';
         try {
             console.info("Fetching jobs from ItJobs")
             //nothing to do here

@@ -5,8 +5,8 @@ const fs = require('fs');
 
 module.exports = class BaseDriver {
 
-    config = {}
     constructor() {
+    this.config = {}
         this.readConfig()
     }
 
