@@ -96,6 +96,7 @@ module.exports = class LandingJobs extends BaseDriver {
             return false;
         } catch (error) {
             console.error("LandingJobs -> filterByTags -> error", error)
+            return false;
 
         }
     }
