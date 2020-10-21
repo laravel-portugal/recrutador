@@ -5,9 +5,9 @@ require('dotenv').config()
 module.exports = class ItJobs extends BaseDriver {
 
     constructor() {
-        this.url = 'https://api.itjobs.pt/job/search.json';
         super()
     }
+    url = 'https://api.itjobs.pt/job/search.json';
 
     /**
      * @returns the default config

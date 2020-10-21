@@ -5,9 +5,9 @@ const BaseDriver = require('./BaseDriver')
 module.exports = class LandingJobs extends BaseDriver {
 
     constructor() {
-        this.url = 'https://landing.jobs/api/v1/jobs';
         super()
     }
+    url = 'https://landing.jobs/api/v1/jobs';
 
 
     /**
