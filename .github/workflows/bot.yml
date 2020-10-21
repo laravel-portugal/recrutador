@@ -21,4 +21,4 @@ jobs:
         TOKEN_ITJOBS: ${{ secrets.TOKEN_ITJOBS }}
     - run: npm install
     # - run: cp .env.example .env
-    - run: node src/app.js
+    # - run: node src/app.js
