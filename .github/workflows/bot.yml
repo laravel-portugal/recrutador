@@ -30,10 +30,16 @@ jobs:
       run: npm test
     
     - name: run npm app.js
-      run: node src/app.js
+      run: TOKEN=${{ secrets.TOKEN_DISCORD }} node src/app.js
 
     - name: Commit files
       run: |
         git config --local user.email "action@github.com"
         git config --local user.name "GitHub Action"
         git commit -m "Add changes" -a
+
+    - name: Push changes
+      uses: ad-m/github-push-action@master
+      with:
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        branch: ${{ github.ref }}
