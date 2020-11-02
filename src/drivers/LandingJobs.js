@@ -1,13 +1,14 @@
 const axios = require('axios').default
 const BaseDriver = require('./BaseDriver')
-
+require('dotenv').config()
 
 module.exports = class LandingJobs extends BaseDriver {
 
     constructor() {
         super()
     }
-    url = 'https://landing.jobs/api/v1/jobs'
+    url = 'https://landing.jobs/api/v1/jobs';
+
 
     /**
      * @returns the default config
@@ -45,8 +46,32 @@ module.exports = class LandingJobs extends BaseDriver {
 
                 console.info('Fetching ' + limit)
                 let jobs = await axios.get(this.url, {
-                    params: payload
-                })
+                    params: payload,
+                    headers: {
+                        "User-Agent": "LARAVEL PORTUGAL GROUPS",
+                        Authorization: 'Token token= ' + process.env.LANDINGJOBS_API_KEY //the token is a variable which holds the token
+                    }
+                }).catch(function(error) {
+                    if (error.response) {
+                        // console.log(error.response.data);
+                        console.log(error.response.status);
+                        console.log(error.response.headers);
+                        if (error.response.status != 200) {
+                            return false;
+                        }
+                    }
+                    if (error.status != 200) {
+                        return false;
+                    }
+                });
+                console.log("STATUS: " + jobs.status);
+                // console.log(jobs.data);
+                // console.log(jobs.status);
+                console.log(jobs.headers.server);
+                if (jobs.status != 200) {
+                    break;
+                }
+
 
                 if (jobs.data.length === 0) {
                     break;
@@ -69,6 +94,7 @@ module.exports = class LandingJobs extends BaseDriver {
             }).sort(x => x.id)
         } catch (error) {
             console.error("LandingJobs -> getJobs -> error", error)
+            return false;
 
         }
     }
@@ -87,6 +113,7 @@ module.exports = class LandingJobs extends BaseDriver {
             return false;
         } catch (error) {
             console.error("LandingJobs -> filterByTags -> error", error)
+            return false;
 
         }
     }

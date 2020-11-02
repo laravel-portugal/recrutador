@@ -10,11 +10,31 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
-    - uses: actions/setup-node@v1
+    - uses: actions/setup-node@v2-beta
       with:
-        node-version: '12.13'
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        branch: ${{ github.ref }}
+        node-version: '12'
       env:
         NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-    - run: npm install
-    - run: cp .env.example .env
-    #- run: npm start
+
+    - name: Install npm
+      run: npm install
+    
+    - name: test npm
+      run: npm test
+    
+    - name: run npm app.js
+      run: TOKEN=${{ secrets.TOKEN_DISCORD }} CHANNELID=${{ secrets.CHANNELID }} FETCHINTERVAL=${{ secrets.FETCHINTERVAL }} TOKEN_ITJOBS=${{ secrets.TOKEN_ITJOBS }} LANDINGJOBS_API_KEY=${{ secrets.LANDINGJOBS_API_KEY }} node src/app.js
+
+    - name: Commit files
+      run: |
+        git config --local user.email "action@github.com"
+        git config --local user.name "GitHub Action"
+        git commit -m "Add changes" -a
+
+    - name: Push changes
+      uses: ad-m/github-push-action@master
+      with:
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        branch: ${{ github.ref }}
