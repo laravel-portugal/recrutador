@@ -55,7 +55,7 @@ module.exports = class ItJobs extends BaseDriver {
                     console.log("STATUS: " + jobs.status);
                     // console.log(jobs.data);
                     // console.log(jobs.status);
-                    console.log(jobs.headers);
+                    // console.log(jobs.headers);
                     if (jobs.status != 200) {
                         break;
                     }
