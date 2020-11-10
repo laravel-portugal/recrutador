@@ -48,6 +48,13 @@ This project is fully tested. We have an [automatic pipeline](https://github.com
 
 ```
 
+
+## Docker
+```bash
+docker build -t michelmelo/recrutador .
+docker run --name recrutador -d michelmelo/recrutador
+
+```
 ## Authorize
 ```
 https://discord.com/oauth2/authorize?client_id=123456789012345678&scope=bot

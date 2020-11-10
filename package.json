@@ -1,9 +1,9 @@
 {
   "name": "recrutador",
-  "version": "0.0.3",
+  "version": "0.9.0",
   "private": true,
   "scripts": {
-    "start": "node src/app.js"
+    "start": "node src/app.js --loop"
   },
   "dependencies": {
     "axios": "^0.20.0",
