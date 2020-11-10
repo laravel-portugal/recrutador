@@ -51,8 +51,8 @@ This project is fully tested. We have an [automatic pipeline](https://github.com
 
 ## Docker
 ```bash
-docker build -t michelmelo/recrutador .
-docker run --name recrutador -d michelmelo/recrutador
+docker build -t laravelportugal//recrutador .
+docker run --name recrutador -d laravelportugal/recrutador
 
 ```
 ## Authorize
