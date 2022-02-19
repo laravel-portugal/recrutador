@@ -6,7 +6,7 @@
     "start": "node src/app.js --loop"
   },
   "dependencies": {
-    "axios": "^0.20.0",
+    "axios": "^0.21.2",
     "bufferutil": "^4.0.1",
     "debug": "~2.6.9",
     "discord.js": "^12.3.1",
